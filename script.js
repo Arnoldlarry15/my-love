@@ -2,8 +2,15 @@
 function createFloatingHearts() {
     const container = document.getElementById('heartsContainer');
     const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝', '💞'];
+    let heartCount = 0;
+    const maxHearts = 50;
     
-    setInterval(() => {
+    const heartInterval = setInterval(() => {
+        if (heartCount >= maxHearts) {
+            clearInterval(heartInterval);
+            return;
+        }
+        
         const heart = document.createElement('div');
         heart.className = 'floating-heart';
         heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
@@ -12,6 +19,7 @@ function createFloatingHearts() {
         heart.style.animationDelay = Math.random() * 2 + 's';
         
         container.appendChild(heart);
+        heartCount++;
         
         setTimeout(() => {
             heart.remove();
@@ -22,8 +30,15 @@ function createFloatingHearts() {
 // Create sparkles
 function createSparkles() {
     const container = document.getElementById('sparklesContainer');
+    let sparkleCount = 0;
+    const maxSparkles = 100;
     
-    setInterval(() => {
+    const sparkleInterval = setInterval(() => {
+        if (sparkleCount >= maxSparkles) {
+            clearInterval(sparkleInterval);
+            return;
+        }
+        
         const sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
         sparkle.style.left = Math.random() * 100 + '%';
@@ -31,6 +46,7 @@ function createSparkles() {
         sparkle.style.animationDelay = Math.random() + 's';
         
         container.appendChild(sparkle);
+        sparkleCount++;
         
         setTimeout(() => {
             sparkle.remove();
@@ -93,13 +109,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add special hover effect to reason cards
     const reasonCards = document.querySelectorAll('.reason-card');
     reasonCards.forEach(card => {
+        const emoji = card.querySelector('.reason-emoji');
         card.addEventListener('mouseenter', function() {
-            const emoji = this.querySelector('.reason-emoji');
+            emoji.style.transition = 'transform 0.3s ease';
             emoji.style.transform = 'scale(1.3) rotate(15deg)';
         });
         
         card.addEventListener('mouseleave', function() {
-            const emoji = this.querySelector('.reason-emoji');
             emoji.style.transform = 'scale(1) rotate(0deg)';
         });
     });
