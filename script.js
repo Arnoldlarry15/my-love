@@ -74,13 +74,20 @@ function handleLoveButtonClick() {
     const button = document.getElementById('loveButton');
     const reasonsGrid = document.getElementById('reasonsGrid');
     
-    button.addEventListener('click', function(e) {
+    function handleButtonAction(e) {
+        // Prevent default behavior
+        e.preventDefault();
+        
+        // Get coordinates, supporting both mouse and touch events
+        const x = e.clientX || (e.touches && e.touches[0].clientX) || (e.changedTouches && e.changedTouches[0].clientX) || window.innerWidth / 2;
+        const y = e.clientY || (e.touches && e.touches[0].clientY) || (e.changedTouches && e.changedTouches[0].clientY) || window.innerHeight / 2;
+        
         // Create burst of hearts
         for (let i = 0; i < 20; i++) {
             setTimeout(() => {
-                const x = e.clientX + (Math.random() - 0.5) * 100;
-                const y = e.clientY + (Math.random() - 0.5) * 100;
-                createClickHeart(x, y);
+                const offsetX = x + (Math.random() - 0.5) * 100;
+                const offsetY = y + (Math.random() - 0.5) * 100;
+                createClickHeart(offsetX, offsetY);
             }, i * 50);
         }
         
@@ -89,14 +96,31 @@ function handleLoveButtonClick() {
             reasonsGrid.style.display = 'grid';
             button.style.display = 'none';
         }, 500);
-    });
+    }
+    
+    // Add both click and touch event listeners for better mobile support
+    button.addEventListener('click', handleButtonAction);
+    button.addEventListener('touchend', handleButtonAction);
 }
 
-// Add click hearts anywhere on screen
+// Add click hearts anywhere on screen (supporting both mouse and touch)
 document.addEventListener('click', function(e) {
     // Don't add hearts for button clicks
     if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
-        createClickHeart(e.clientX, e.clientY);
+        const x = e.clientX || window.innerWidth / 2;
+        const y = e.clientY || window.innerHeight / 2;
+        createClickHeart(x, y);
+    }
+});
+
+// Add touch support for hearts
+document.addEventListener('touchend', function(e) {
+    // Don't add hearts for button or card touches
+    if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
+        const touch = e.changedTouches && e.changedTouches[0];
+        if (touch) {
+            createClickHeart(touch.clientX, touch.clientY);
+        }
     }
 });
 
