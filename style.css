@@ -103,7 +103,6 @@ body {
     width: 100%;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
     animation: cardEntrance 1s ease-out;
-    backdrop-filter: blur(10px);
 }
 
 @keyframes cardEntrance {
@@ -214,6 +213,12 @@ body {
     box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
     transition: all 0.3s ease;
     font-weight: bold;
+    /* Improve tap target for mobile */
+    min-height: 60px;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .love-button:hover {
