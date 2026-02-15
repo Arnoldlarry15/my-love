@@ -20,7 +20,8 @@ body {
     background: linear-gradient(135deg, #FFE5EC 0%, #FFC2D1 25%, #FFB3C6 50%, #FF8FAB 75%, #FFB6C1 100%);
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
-    z-index: -1;
+    z-index: 0;
+    will-change: background-position;
 }
 
 @keyframes gradientShift {

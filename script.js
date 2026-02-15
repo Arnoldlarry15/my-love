@@ -73,14 +73,21 @@ function createClickHeart(x, y) {
 function handleLoveButtonClick() {
     const button = document.getElementById('loveButton');
     const reasonsGrid = document.getElementById('reasonsGrid');
+    let hasBeenClicked = false;
     
     function handleButtonAction(e) {
-        // Prevent default behavior
-        e.preventDefault();
+        // Prevent multiple triggers
+        if (hasBeenClicked) return;
+        hasBeenClicked = true;
+        
+        // Prevent default behavior only for touch events
+        if (e.type === 'touchend') {
+            e.preventDefault();
+        }
         
         // Get coordinates, supporting both mouse and touch events
-        const x = e.clientX || (e.touches && e.touches[0].clientX) || (e.changedTouches && e.changedTouches[0].clientX) || window.innerWidth / 2;
-        const y = e.clientY || (e.touches && e.touches[0].clientY) || (e.changedTouches && e.changedTouches[0].clientY) || window.innerHeight / 2;
+        const x = e.clientX || (e.touches && e.touches[0]?.clientX) || (e.changedTouches && e.changedTouches[0]?.clientX) || window.innerWidth / 2;
+        const y = e.clientY || (e.touches && e.touches[0]?.clientY) || (e.changedTouches && e.changedTouches[0]?.clientY) || window.innerHeight / 2;
         
         // Create burst of hearts
         for (let i = 0; i < 20; i++) {
@@ -98,9 +105,10 @@ function handleLoveButtonClick() {
         }, 500);
     }
     
-    // Add both click and touch event listeners for better mobile support
+    // Add click listener for desktop
     button.addEventListener('click', handleButtonAction);
-    button.addEventListener('touchend', handleButtonAction);
+    // Add touch listener for mobile (with passive: false to allow preventDefault)
+    button.addEventListener('touchend', handleButtonAction, { passive: false });
 }
 
 // Add click hearts anywhere on screen (supporting both mouse and touch)
