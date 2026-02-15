@@ -1,0 +1,110 @@
+// Create floating hearts
+function createFloatingHearts() {
+    const container = document.getElementById('heartsContainer');
+    const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝', '💞'];
+    
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        
+        container.appendChild(heart);
+        
+        setTimeout(() => {
+            heart.remove();
+        }, 10000);
+    }, 500);
+}
+
+// Create sparkles
+function createSparkles() {
+    const container = document.getElementById('sparklesContainer');
+    
+    setInterval(() => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * 100 + '%';
+        sparkle.style.top = Math.random() * 100 + '%';
+        sparkle.style.animationDelay = Math.random() + 's';
+        
+        container.appendChild(sparkle);
+        
+        setTimeout(() => {
+            sparkle.remove();
+        }, 2000);
+    }, 200);
+}
+
+// Click effect
+function createClickHeart(x, y) {
+    const heart = document.createElement('div');
+    heart.className = 'click-heart';
+    heart.textContent = '💖';
+    heart.style.left = x + 'px';
+    heart.style.top = y + 'px';
+    
+    document.body.appendChild(heart);
+    
+    setTimeout(() => {
+        heart.remove();
+    }, 1000);
+}
+
+// Handle button click
+function handleLoveButtonClick() {
+    const button = document.getElementById('loveButton');
+    const reasonsGrid = document.getElementById('reasonsGrid');
+    
+    button.addEventListener('click', function(e) {
+        // Create burst of hearts
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const x = e.clientX + (Math.random() - 0.5) * 100;
+                const y = e.clientY + (Math.random() - 0.5) * 100;
+                createClickHeart(x, y);
+            }, i * 50);
+        }
+        
+        // Show reasons grid
+        setTimeout(() => {
+            reasonsGrid.style.display = 'grid';
+            button.style.display = 'none';
+        }, 500);
+    });
+}
+
+// Add click hearts anywhere on screen
+document.addEventListener('click', function(e) {
+    // Don't add hearts for button clicks
+    if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
+        createClickHeart(e.clientX, e.clientY);
+    }
+});
+
+// Add hover effect for cards
+document.addEventListener('DOMContentLoaded', function() {
+    createFloatingHearts();
+    createSparkles();
+    handleLoveButtonClick();
+    
+    // Add special hover effect to reason cards
+    const reasonCards = document.querySelectorAll('.reason-card');
+    reasonCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            const emoji = this.querySelector('.reason-emoji');
+            emoji.style.transform = 'scale(1.3) rotate(15deg)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const emoji = this.querySelector('.reason-emoji');
+            emoji.style.transform = 'scale(1) rotate(0deg)';
+        });
+    });
+});
+
+// Add a special message to console
+console.log('%c💖 Happy Valentine\'s Day! 💖', 'font-size: 30px; color: #ff6b9d; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
+console.log('%cMade with love ❤️', 'font-size: 16px; color: #f093fb; font-style: italic;');
