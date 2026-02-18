@@ -6,13 +6,16 @@
 }
 
 :root {
-    --primary-vibrant: #FF1654;
-    --primary-dark: #C40C2F;
-    --accent-gold: #FFD700;
-    --accent-light: #FFB6D9;
-    --bg-light: #FFF5F7;
-    --text-dark: #2D1B2E;
-    --text-muted: #6B5B6B;
+    --primary-vibrant: #E91E63;
+    --primary-dark: #C2185B;
+    --accent-gold: #FFA726;
+    --accent-light: #F8BBD0;
+    --bg-light: #FFF8F9;
+    --text-dark: #1A1A2E;
+    --text-muted: #616161;
+    --card-bg: #FFFFFF;
+    --letter-bg: #FFF5F8;
+    --letter-accent: #F3E5F5;
 }
 
 html {
@@ -35,9 +38,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #FFE5EC 0%, #FFF0F5 25%, #FFB3D9 50%, #FF8FAB 75%, #FFD6E8 100%);
-    background-size: 300% 300%;
-    animation: ambientGradient 20s ease infinite;
+    background: linear-gradient(135deg, #FCEEF8 0%, #F8EBF5 20%, #F3E8F0 40%, #EFE5EC 60%, #F5E8F0 80%, #FAE8EE 100%);
+    background-size: 400% 400%;
+    animation: ambientGradient 25s ease infinite;
     z-index: -2;
 }
 
@@ -77,17 +80,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 25px;
 }
 
 .card-container {
     width: 100%;
-    max-width: 900px;
-    background: white;
-    border-radius: 40px;
+    max-width: 920px;
+    background: var(--card-bg);
+    border-radius: 35px;
     overflow: hidden;
-    box-shadow: 0 40px 100px rgba(255, 22, 84, 0.2),
-                0 20px 50px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 50px 120px rgba(233, 30, 99, 0.15),
+                0 20px 60px rgba(0, 0, 0, 0.06);
     animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
     backdrop-filter: blur(10px);
 }
@@ -124,13 +127,13 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 22, 84, 0.15) 0%, rgba(255, 183, 217, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.12) 0%, rgba(255, 167, 38, 0.08) 100%);
     mix-blend-mode: overlay;
 }
 
 /* ==================== CARD HEADER ==================== */
 .valentine-card {
-    padding: 60px 50px;
+    padding: 70px 55px;
 }
 
 .card-header {
@@ -139,7 +142,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 28px;
 }
 
 .title-wrapper {
@@ -189,28 +192,30 @@ body {
 
 /* ==================== LOVE MESSAGE SECTION ==================== */
 .love-message-section {
-    margin: 50px 0;
+    margin: 55px 0;
 }
 
 .greeting {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8em;
+    font-size: 1.9em;
     color: var(--primary-vibrant);
     font-weight: 600;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     text-align: center;
+    letter-spacing: 0.5px;
 }
 
 .love-letter {
-    background: linear-gradient(135deg, rgba(255, 22, 84, 0.08) 0%, rgba(255, 183, 217, 0.06) 100%);
-    border-left: 4px solid var(--primary-vibrant);
-    padding: 30px;
-    border-radius: 20px;
-    margin: 25px 0;
-    line-height: 1.8;
+    background: linear-gradient(135deg, var(--letter-bg) 0%, #FFEEF5 100%);
+    border-left: 5px solid var(--primary-vibrant);
+    padding: 32px 35px;
+    border-radius: 18px;
+    margin: 30px 0;
+    line-height: 1.9;
     font-size: 1.1em;
     color: var(--text-dark);
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.08);
 }
 
 .love-letter p {
@@ -225,15 +230,16 @@ body {
 
 .accent-letter {
     border-left-color: var(--accent-gold);
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 183, 217, 0.08) 100%);
+    background: linear-gradient(135deg, var(--letter-accent) 0%, #F9F0FF 100%);
+    box-shadow: 0 4px 15px rgba(255, 167, 38, 0.08);
 }
 
 .image-accent {
-    margin: 35px 0;
-    border-radius: 25px;
+    margin: 40px 0;
+    border-radius: 22px;
     overflow: hidden;
-    height: 200px;
-    box-shadow: 0 20px 50px rgba(255, 22, 84, 0.15);
+    height: 220px;
+    box-shadow: 0 25px 60px rgba(233, 30, 99, 0.18);
 }
 
 .accent-image {
@@ -281,8 +287,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin: 50px 0;
+    gap: 16px;
+    margin: 55px 0;
 }
 
 .surprise-button {
@@ -295,7 +301,7 @@ body {
     cursor: pointer;
     font-weight: 600;
     letter-spacing: 0.5px;
-    box-shadow: 0 20px 50px rgba(255, 22, 84, 0.4);
+    box-shadow: 0 20px 50px rgba(233, 30, 99, 0.35);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 60px;
     display: flex;
@@ -308,7 +314,7 @@ body {
 
 .surprise-button:hover {
     transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 30px 70px rgba(255, 22, 84, 0.5);
+    box-shadow: 0 30px 70px rgba(233, 30, 99, 0.45);
 }
 
 .surprise-button:active {
@@ -372,16 +378,17 @@ body {
 }
 
 .reason-card {
-    background: linear-gradient(135deg, rgba(255, 22, 84, 0.08) 0%, rgba(255, 183, 217, 0.06) 100%);
-    border: 2px solid rgba(255, 22, 84, 0.2);
-    padding: 30px;
-    border-radius: 25px;
+    background: linear-gradient(135deg, var(--letter-bg) 0%, #FFF0F7 100%);
+    border: 2px solid rgba(233, 30, 99, 0.15);
+    padding: 32px;
+    border-radius: 20px;
     text-align: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .reason-card::before {
@@ -420,7 +427,8 @@ body {
 .reason-card:hover {
     transform: translateY(-15px) scale(1.08);
     border-color: var(--primary-vibrant);
-    box-shadow: 0 25px 50px rgba(255, 22, 84, 0.25);
+    box-shadow: 0 28px 65px rgba(233, 30, 99, 0.28);
+    background: linear-gradient(135deg, #FFF0F7 0%, #FFE8F3 100%);
 }
 
 .reason-card:hover::before {
@@ -490,9 +498,9 @@ body {
 /* ==================== FOOTER ==================== */
 .card-footer {
     text-align: center;
-    margin-top: 50px;
-    padding-top: 40px;
-    border-top: 2px solid rgba(255, 22, 84, 0.15);
+    margin-top: 55px;
+    padding-top: 45px;
+    border-top: 2px solid rgba(233, 30, 99, 0.12);
 }
 
 .signature-block {
@@ -519,7 +527,7 @@ body {
 .floating-particle {
     position: absolute;
     pointer-events: none;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0));
+    background: radial-gradient(circle, rgba(255, 167, 38, 0.8), rgba(255, 167, 38, 0));
     border-radius: 50%;
     animation: particleFloat 6s ease-in-out infinite;
 }
@@ -689,7 +697,7 @@ body {
 @media (max-width: 480px) {
     .card-container {
         border-radius: 25px;
-        box-shadow: 0 20px 60px rgba(255, 22, 84, 0.15);
+        box-shadow: 0 20px 60px rgba(233, 30, 99, 0.15);
     }
 
     .valentine-card {
