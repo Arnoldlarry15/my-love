@@ -1,284 +1,214 @@
+// ==================== PARTICLE AND ANIMATION SYSTEM ====================
+
+// Create floating particles
+function createFloatingParticles() {
+    const container = document.getElementById('floatingParticles');
+    if (!container) return;
+
+    let particleCount = 0;
+    const maxParticles = 30;
+
+    const particleInterval = setInterval(() => {
+        if (particleCount >= maxParticles) {
+            clearInterval(particleInterval);
+            // Restart after all particles are done
+            setTimeout(createFloatingParticles, 2000);
+            return;
+        }
+
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        const size = Math.random() * 8 + 4;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.bottom = '-20px';
+        particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
+        particle.style.animationDelay = Math.random() * 1 + 's';
+
+        container.appendChild(particle);
+        particleCount++;
+
+        setTimeout(() => {
+            particle.remove();
+        }, 10000);
+    }, 300);
+}
+
 // Create floating hearts
 function createFloatingHearts() {
-    const container = document.getElementById('heartsContainer');
-    if (!container) {
-        console.error('Hearts container not found!');
-        return;
-    }
-    
-    const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝', '💞'];
+    const container = document.getElementById('floatingHearts');
+    if (!container) return;
+
+    const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝'];
     let heartCount = 0;
-    const maxHearts = 50;
-    
+    const maxHearts = 40;
+
     const heartInterval = setInterval(() => {
         if (heartCount >= maxHearts) {
             clearInterval(heartInterval);
+            // Restart after all hearts are done
+            setTimeout(createFloatingHearts, 3000);
             return;
         }
-        
+
         const heart = document.createElement('div');
         heart.className = 'floating-heart';
         heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
         heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
-        heart.style.animationDelay = Math.random() * 2 + 's';
-        
+        heart.style.bottom = '-30px';
+        heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+        heart.style.animationDelay = Math.random() * 1.5 + 's';
+
         container.appendChild(heart);
         heartCount++;
-        
+
         setTimeout(() => {
             heart.remove();
-        }, 10000);
-    }, 500);
+        }, 12000);
+    }, 600);
 }
 
-// Create sparkles
-function createSparkles() {
-    const container = document.getElementById('sparklesContainer');
-    if (!container) {
-        console.error('Sparkles container not found!');
-        return;
-    }
-    
-    let sparkleCount = 0;
-    const maxSparkles = 100;
-    
-    const sparkleInterval = setInterval(() => {
-        if (sparkleCount >= maxSparkles) {
-            clearInterval(sparkleInterval);
-            return;
-        }
-        
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-        sparkle.style.left = Math.random() * 100 + '%';
-        sparkle.style.top = Math.random() * 100 + '%';
-        sparkle.style.animationDelay = Math.random() + 's';
-        
-        container.appendChild(sparkle);
-        sparkleCount++;
-        
-        setTimeout(() => {
-            sparkle.remove();
-        }, 2000);
-    }, 200);
-}
+// ==================== CLICK HEART BURST ====================
 
-// Click effect
 function createClickHeart(x, y) {
     const heart = document.createElement('div');
     heart.className = 'click-heart';
-    heart.textContent = '💖';
+    const hearts = ['💖', '❤️', '💕', '💗'];
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
     heart.style.left = x + 'px';
     heart.style.top = y + 'px';
-    
+
     document.body.appendChild(heart);
-    
+
     setTimeout(() => {
         heart.remove();
     }, 1000);
 }
 
-// Handle button click - FIXED VERSION
-function handleLoveButtonClick() {
+// ==================== BUTTON INTERACTION ====================
+
+function initializeButtonInteraction() {
     const button = document.getElementById('loveButton');
-    const reasonsGrid = document.getElementById('reasonsGrid');
-    
-    if (!button) {
-        console.error('Love button not found!');
+    const reasonsContainer = document.getElementById('reasonsContainer');
+    const closeBtn = document.getElementById('closeReasonsBtn');
+
+    if (!button || !reasonsContainer || !closeBtn) {
+        console.error('Required elements not found');
         return;
     }
-    
-    if (!reasonsGrid) {
-        console.error('Reasons grid not found!');
-        return;
-    }
-    
-    console.log('Button click handler attached successfully!');
-    
-    function handleButtonAction(e) {
-        console.log('Button clicked!');
-        
-        // Prevent default behavior
+
+    // Handle button click - Show reasons
+    function handleButtonClick(e) {
         e.preventDefault();
-        e.stopPropagation();
         
-        // Get coordinates, supporting both mouse and touch events
-        const x = e.clientX || (e.touches && e.touches[0].clientX) || (e.changedTouches && e.changedTouches[0].clientX) || window.innerWidth / 2;
-        const y = e.clientY || (e.touches && e.touches[0].clientY) || (e.changedTouches && e.changedTouches[0].clientY) || window.innerHeight / 2;
-        
-        // Create burst of hearts
-        for (let i = 0; i < 20; i++) {
+        // Get click coordinates
+        const rect = button.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        // Create heart burst
+        for (let i = 0; i < 25; i++) {
             setTimeout(() => {
-                const offsetX = x + (Math.random() - 0.5) * 100;
-                const offsetY = y + (Math.random() - 0.5) * 100;
+                const offsetX = x + (Math.random() - 0.5) * 150;
+                const offsetY = y + (Math.random() - 0.5) * 150;
                 createClickHeart(offsetX, offsetY);
-            }, i * 50);
+            }, i * 40);
         }
-        
-        // Show reasons grid
+
+        // Transition to reasons
         setTimeout(() => {
-            reasonsGrid.style.display = 'grid';
-            button.style.display = 'none';
+            button.style.opacity = '0';
+            button.style.transform = 'scale(0.8)';
+            button.style.pointerEvents = 'none';
+
+            reasonsContainer.style.display = 'block';
             
-            // NOW add hover effects to reason cards since they're visible
-            addReasonCardHoverEffects();
-        }, 500);
+            // Trigger reflow to restart animations
+            void reasonsContainer.offsetWidth;
+            
+            // Scroll to reasons smoothly
+            reasonsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
     }
-    
-    // Add both click and touch event listeners for better mobile support
-    button.addEventListener('click', handleButtonAction);
-    button.addEventListener('touchend', handleButtonAction);
-}
 
-// Add hover effect for reason cards - moved to separate function
-function addReasonCardHoverEffects() {
-    const reasonCards = document.querySelectorAll('.reason-card');
-    console.log('Adding hover effects to', reasonCards.length, 'cards');
-    
-    reasonCards.forEach(card => {
-        const emoji = card.querySelector('.reason-emoji');
-        
-        card.addEventListener('mouseenter', function() {
-            emoji.style.transition = 'transform 0.3s ease';
-            emoji.style.transform = 'scale(1.3) rotate(15deg)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            emoji.style.transform = 'scale(1) rotate(0deg)';
-        });
-    });
-}
+    // Handle close button - Return to main view
+    function handleCloseClick(e) {
+        e.preventDefault();
 
-// Add click hearts anywhere on screen (supporting both mouse and touch)
-document.addEventListener('click', function(e) {
-    // Don't add hearts for button clicks
-    if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
-        const x = e.clientX || window.innerWidth / 2;
-        const y = e.clientY || window.innerHeight / 2;
-        createClickHeart(x, y);
-    }
-});
+        button.style.opacity = '1';
+        button.style.transform = 'scale(1)';
+        button.style.pointerEvents = 'auto';
+        reasonsContainer.style.display = 'none';
 
-// Add touch support for hearts
-document.addEventListener('touchend', function(e) {
-    // Don't add hearts for button or card touches
-    if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
-        const touch = e.changedTouches && e.changedTouches[0];
-        if (touch) {
-            createClickHeart(touch.clientX, touch.clientY);
-        }
-    }
-});
-
-// Initialize everything when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM Content Loaded - Initializing...');
-    
-    // Start animations
-    createFloatingHearts();
-    createSparkles();
-    
-    // Attach button handler
-    handleLoveButtonClick();
-    
-    console.log('Initialization complete!');
-});
-
-// Add a special message to console
-console.log('%c💖 Happy Valentine\'s Day! 💖', 'font-size: 30px; color: #ff6b9d; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
-console.log('%cMade with love ❤️', 'font-size: 16px; color: #f093fb; font-style: italic;');
-        if (sparkleCount >= maxSparkles) {
-            clearInterval(sparkleInterval);
-            return;
-        }
-        
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-        sparkle.style.left = Math.random() * 100 + '%';
-        sparkle.style.top = Math.random() * 100 + '%';
-        sparkle.style.animationDelay = Math.random() + 's';
-        
-        container.appendChild(sparkle);
-        sparkleCount++;
-        
+        // Scroll back to button
         setTimeout(() => {
-            sparkle.remove();
-        }, 2000);
-    }, 200);
+            button.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+    }
+
+    button.addEventListener('click', handleButtonClick);
+    button.addEventListener('touchend', handleButtonClick);
+    closeBtn.addEventListener('click', handleCloseClick);
+    closeBtn.addEventListener('touchend', handleCloseClick);
+
+    // Add reason card hover effects
+    addReasonCardEffects();
 }
 
-// Click effect
-function createClickHeart(x, y) {
-    const heart = document.createElement('div');
-    heart.className = 'click-heart';
-    heart.textContent = '💖';
-    heart.style.left = x + 'px';
-    heart.style.top = y + 'px';
-    
-    document.body.appendChild(heart);
-    
-    setTimeout(() => {
-        heart.remove();
-    }, 1000);
-}
+// ==================== REASON CARD EFFECTS ====================
 
-// Handle button click
-function handleLoveButtonClick() {
-    const button = document.getElementById('loveButton');
-    const reasonsGrid = document.getElementById('reasonsGrid');
-    let hasBeenClicked = false;
-    
-    function handleButtonAction(e) {
-        // Prevent multiple triggers
-        if (hasBeenClicked) return;
-        hasBeenClicked = true;
-        
-        // Prevent default behavior only for touch events
-        if (e.type === 'touchend') {
-            e.preventDefault();
-        }
-        
-        // Get coordinates, supporting both mouse and touch events
-        const x = e.clientX || (e.touches && e.touches[0]?.clientX) || (e.changedTouches && e.changedTouches[0]?.clientX) || window.innerWidth / 2;
-        const y = e.clientY || (e.touches && e.touches[0]?.clientY) || (e.changedTouches && e.changedTouches[0]?.clientY) || window.innerHeight / 2;
-        
-        // Create burst of hearts
-        for (let i = 0; i < 20; i++) {
+function addReasonCardEffects() {
+    const reasonCards = document.querySelectorAll('.reason-card');
+
+    reasonCards.forEach((card, index) => {
+        const emoji = card.querySelector('.reason-emoji');
+
+        card.addEventListener('mouseenter', () => {
+            emoji.style.animation = 'none';
             setTimeout(() => {
-                const offsetX = x + (Math.random() - 0.5) * 100;
-                const offsetY = y + (Math.random() - 0.5) * 100;
-                createClickHeart(offsetX, offsetY);
-            }, i * 50);
-        }
-        
-        // Show reasons grid
-        setTimeout(() => {
-            reasonsGrid.style.display = 'grid';
-            button.style.display = 'none';
-        }, 500);
-    }
-    
-    // Add click listener for desktop
-    button.addEventListener('click', handleButtonAction);
-    // Add touch listener for mobile (with passive: false to allow preventDefault)
-    button.addEventListener('touchend', handleButtonAction, { passive: false });
+                emoji.style.animation = 'emojiSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            }, 10);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            emoji.style.animation = 'emojiFloat 3s ease-in-out infinite';
+        });
+
+        card.addEventListener('click', () => {
+            // Create mini celebration
+            const rect = card.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const offsetX = x + (Math.random() - 0.5) * 80;
+                    const offsetY = y + (Math.random() - 0.5) * 80;
+                    createClickHeart(offsetX, offsetY);
+                }, i * 50);
+            }
+        });
+    });
 }
 
-// Add click hearts anywhere on screen (supporting both mouse and touch)
+// ==================== GLOBAL CLICK HEARTS ====================
+
 document.addEventListener('click', function(e) {
-    // Don't add hearts for button clicks
-    if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
+    // Don't create hearts for buttons and specific elements
+    if (!e.target.closest('.surprise-button') && 
+        !e.target.closest('.reason-card') && 
+        !e.target.closest('.close-reasons-btn')) {
         const x = e.clientX || window.innerWidth / 2;
         const y = e.clientY || window.innerHeight / 2;
         createClickHeart(x, y);
     }
 });
 
-// Add touch support for hearts
 document.addEventListener('touchend', function(e) {
-    // Don't add hearts for button or card touches
-    if (!e.target.closest('.love-button') && !e.target.closest('.reason-card')) {
+    if (!e.target.closest('.surprise-button') && 
+        !e.target.closest('.reason-card') && 
+        !e.target.closest('.close-reasons-btn')) {
         const touch = e.changedTouches && e.changedTouches[0];
         if (touch) {
             createClickHeart(touch.clientX, touch.clientY);
@@ -286,27 +216,62 @@ document.addEventListener('touchend', function(e) {
     }
 });
 
-// Add hover effect for cards
-document.addEventListener('DOMContentLoaded', function() {
-    createFloatingHearts();
-    createSparkles();
-    handleLoveButtonClick();
+// ==================== SCROLL EFFECTS ====================
+
+function initializeScrollEffects() {
+    const elements = document.querySelectorAll('.fade-in');
     
-    // Add special hover effect to reason cards
-    const reasonCards = document.querySelectorAll('.reason-card');
-    reasonCards.forEach(card => {
-        const emoji = card.querySelector('.reason-emoji');
-        card.addEventListener('mouseenter', function() {
-            emoji.style.transition = 'transform 0.3s ease';
-            emoji.style.transform = 'scale(1.3) rotate(15deg)';
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+            }
         });
-        
-        card.addEventListener('mouseleave', function() {
-            emoji.style.transform = 'scale(1) rotate(0deg)';
-        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    elements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+// ==================== INITIALIZATION ====================
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('%c💖 Happy Valentine\'s Day! 💖', 
+        'font-size: 28px; color: #FF1654; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
+    console.log('%cMade with love for Stacey ❤️', 
+        'font-size: 14px; color: #FF1654; font-style: italic; margin-top: 10px;');
+
+    // Start all animations
+    createFloatingParticles();
+    createFloatingHearts();
+    initializeButtonInteraction();
+    initializeScrollEffects();
+
+    // Add subtle parallax effect on scroll
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+                const parallexElements = document.querySelectorAll('.hero-section');
+                parallexElements.forEach(el => {
+                    el.style.transform = `translateY(${scrolled * 0.5}px)`;
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 });
 
-// Add a special message to console
-console.log('%c💖 Happy Valentine\'s Day! 💖', 'font-size: 30px; color: #ff6b9d; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
-console.log('%cMade with love ❤️', 'font-size: 16px; color: #f093fb; font-style: italic;');
+// Handle page visibility for smooth transitions
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        // Page became visible - restart animations if needed
+        console.log('Welcome back! 💕');
+    }
+});
