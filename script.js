@@ -1,83 +1,78 @@
-// Create floating particles
-function createFloatingParticles() {
-    const container = document.getElementById('floatingParticles');
-    if (!container) {
+(function() {
+  'use strict';
+
+  // Floating Particles
+  function createFloatingParticles() {
+    var container = document.getElementById('floatingParticles');
+    if (!container) return;
+
+    var particleCount = 0;
+    var maxParticles = 30;
+
+    var particleInterval = setInterval(function() {
+      if (particleCount >= maxParticles) {
+        clearInterval(particleInterval);
+        setTimeout(createFloatingParticles, 2000);
         return;
-    }
+      }
 
-    let particleCount = 0;
-    const maxParticles = 30;
+      var particle = document.createElement('div');
+      particle.className = 'floating-particle';
+      var size = Math.random() * 8 + 4;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.bottom = '-20px';
+      particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
+      particle.style.animationDelay = Math.random() * 1 + 's';
 
-    const particleInterval = setInterval(function() {
-        if (particleCount >= maxParticles) {
-            clearInterval(particleInterval);
-            setTimeout(function() {
-                createFloatingParticles();
-            }, 2000);
-            return;
-        }
+      container.appendChild(particle);
+      particleCount += 1;
 
-        const particle = document.createElement('div');
-        particle.className = 'floating-particle';
-        const size = Math.random() * 8 + 4;
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.bottom = '-20px';
-        particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
-        particle.style.animationDelay = Math.random() * 1 + 's';
-
-        container.appendChild(particle);
-        particleCount++;
-
-        setTimeout(function() {
-            particle.remove();
-        }, 10000);
+      setTimeout(function() {
+        particle.remove();
+      }, 10000);
     }, 300);
-}
+  }
 
-// Create floating hearts
-function createFloatingHearts() {
-    const container = document.getElementById('floatingHearts');
-    if (!container) {
+  // Floating Hearts
+  function createFloatingHearts() {
+    var container = document.getElementById('floatingHearts');
+    if (!container) return;
+
+    var heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝'];
+    var heartCount = 0;
+    var maxHearts = 40;
+
+    var heartInterval = setInterval(function() {
+      if (heartCount >= maxHearts) {
+        clearInterval(heartInterval);
+        setTimeout(createFloatingHearts, 3000);
         return;
-    }
+      }
 
-    const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝'];
-    let heartCount = 0;
-    const maxHearts = 40;
+      var heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.bottom = '-30px';
+      heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+      heart.style.animationDelay = Math.random() * 1.5 + 's';
 
-    const heartInterval = setInterval(function() {
-        if (heartCount >= maxHearts) {
-            clearInterval(heartInterval);
-            setTimeout(function() {
-                createFloatingHearts();
-            }, 3000);
-            return;
-        }
+      container.appendChild(heart);
+      heartCount += 1;
 
-        const heart = document.createElement('div');
-        heart.className = 'floating-heart';
-        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.bottom = '-30px';
-        heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
-        heart.style.animationDelay = Math.random() * 1.5 + 's';
-
-        container.appendChild(heart);
-        heartCount++;
-
-        setTimeout(function() {
-            heart.remove();
-        }, 12000);
+      setTimeout(function() {
+        heart.remove();
+      }, 12000);
     }, 600);
-}
+  }
 
-// Create click hearts
-function createClickHeart(x, y) {
-    const heart = document.createElement('div');
+  // Click Heart Burst
+  function createClickHeart(x, y) {
+    var heart = document.createElement('div');
     heart.className = 'click-heart';
-    const hearts = ['💖', '❤️', '💕', '💗'];
+    var hearts = ['💖', '❤️', '💕', '💗'];
     heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
     heart.style.left = x + 'px';
     heart.style.top = y + 'px';
@@ -85,65 +80,59 @@ function createClickHeart(x, y) {
     document.body.appendChild(heart);
 
     setTimeout(function() {
-        heart.remove();
+      heart.remove();
     }, 1000);
-}
+  }
 
-// Initialize button interaction
-function initializeButtonInteraction() {
-    const button = document.getElementById('loveButton');
-    const reasonsContainer = document.getElementById('reasonsContainer');
-    const closeBtn = document.getElementById('closeReasonsBtn');
+  // Button Interaction
+  function initializeButtonInteraction() {
+    var button = document.getElementById('loveButton');
+    var reasonsContainer = document.getElementById('reasonsContainer');
+    var closeBtn = document.getElementById('closeReasonsBtn');
 
     if (!button || !reasonsContainer || !closeBtn) {
-        console.error('Required elements not found');
-        return;
+      console.error('Required elements not found');
+      return;
     }
 
     function handleButtonClick(e) {
-        e.preventDefault();
-        
-        const rect = button.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
+      e.preventDefault();
+      
+      var rect = button.getBoundingClientRect();
+      var x = rect.left + rect.width / 2;
+      var y = rect.top + rect.height / 2;
 
-        for (let i = 0; i < 25; i++) {
-            setTimeout(function() {
-                const offsetX = x + (Math.random() - 0.5) * 150;
-                const offsetY = y + (Math.random() - 0.5) * 150;
-                createClickHeart(offsetX, offsetY);
-            }, i * 40);
-        }
+      var i;
+      for (i = 0; i < 25; i++) {
+        (function(index) {
+          setTimeout(function() {
+            var offsetX = x + (Math.random() - 0.5) * 150;
+            var offsetY = y + (Math.random() - 0.5) * 150;
+            createClickHeart(offsetX, offsetY);
+          }, index * 40);
+        })(i);
+      }
 
-        setTimeout(function() {
-            button.style.opacity = '0';
-            button.style.transform = 'scale(0.8)';
-            button.style.pointerEvents = 'none';
-
-            reasonsContainer.style.display = 'block';
-            void reasonsContainer.offsetWidth;
-            
-            reasonsContainer.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 300);
+      setTimeout(function() {
+        button.style.opacity = '0';
+        button.style.transform = 'scale(0.8)';
+        button.style.pointerEvents = 'none';
+        reasonsContainer.style.display = 'block';
+        void reasonsContainer.offsetWidth;
+        reasonsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
     }
 
     function handleCloseClick(e) {
-        e.preventDefault();
+      e.preventDefault();
+      button.style.opacity = '1';
+      button.style.transform = 'scale(1)';
+      button.style.pointerEvents = 'auto';
+      reasonsContainer.style.display = 'none';
 
-        button.style.opacity = '1';
-        button.style.transform = 'scale(1)';
-        button.style.pointerEvents = 'auto';
-        reasonsContainer.style.display = 'none';
-
-        setTimeout(function() {
-            button.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }, 100);
+      setTimeout(function() {
+        button.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
     }
 
     button.addEventListener('click', handleButtonClick);
@@ -152,114 +141,120 @@ function initializeButtonInteraction() {
     closeBtn.addEventListener('touchend', handleCloseClick);
 
     addReasonCardEffects();
-}
+  }
 
-// Add reason card effects
-function addReasonCardEffects() {
-    const reasonCards = document.querySelectorAll('.reason-card');
+  // Reason Card Effects
+  function addReasonCardEffects() {
+    var reasonCards = document.querySelectorAll('.reason-card');
 
     reasonCards.forEach(function(card) {
-        const emoji = card.querySelector('.reason-emoji');
+      var emoji = card.querySelector('.reason-emoji');
 
-        card.addEventListener('mouseenter', function() {
-            emoji.style.animation = 'none';
+      card.addEventListener('mouseenter', function() {
+        emoji.style.animation = 'none';
+        setTimeout(function() {
+          emoji.style.animation = 'emojiSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        }, 10);
+      });
+
+      card.addEventListener('mouseleave', function() {
+        emoji.style.animation = 'emojiFloat 3s ease-in-out infinite';
+      });
+
+      card.addEventListener('click', function() {
+        var rect = card.getBoundingClientRect();
+        var x = rect.left + rect.width / 2;
+        var y = rect.top + rect.height / 2;
+
+        var i;
+        for (i = 0; i < 8; i++) {
+          (function(index) {
             setTimeout(function() {
-                emoji.style.animation = 'emojiSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-            }, 10);
-        });
-
-        card.addEventListener('mouseleave', function() {
-            emoji.style.animation = 'emojiFloat 3s ease-in-out infinite';
-        });
-
-        card.addEventListener('click', function() {
-            const rect = card.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-
-            for (let i = 0; i < 8; i++) {
-                setTimeout(function() {
-                    const offsetX = x + (Math.random() - 0.5) * 80;
-                    const offsetY = y + (Math.random() - 0.5) * 80;
-                    createClickHeart(offsetX, offsetY);
-                }, i * 50);
-            }
-        });
-    });
-}
-
-// Global click hearts
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('.surprise-button') && 
-        !e.target.closest('.reason-card') && 
-        !e.target.closest('.close-reasons-btn')) {
-        const x = e.clientX || window.innerWidth / 2;
-        const y = e.clientY || window.innerHeight / 2;
-        createClickHeart(x, y);
-    }
-});
-
-document.addEventListener('touchend', function(e) {
-    if (!e.target.closest('.surprise-button') && 
-        !e.target.closest('.reason-card') && 
-        !e.target.closest('.close-reasons-btn')) {
-        const touch = e.changedTouches && e.changedTouches[0];
-        if (touch) {
-            createClickHeart(touch.clientX, touch.clientY);
+              var offsetX = x + (Math.random() - 0.5) * 80;
+              var offsetY = y + (Math.random() - 0.5) * 80;
+              createClickHeart(offsetX, offsetY);
+            }, index * 50);
+          })(i);
         }
-    }
-});
+      });
+    });
+  }
 
-// Initialize scroll effects
-function initializeScrollEffects() {
-    const elements = document.querySelectorAll('.fade-in');
+  // Global Click Hearts
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.surprise-button') && 
+        !e.target.closest('.reason-card') && 
+        !e.target.closest('.close-reasons-btn')) {
+      var x = e.clientX || window.innerWidth / 2;
+      var y = e.clientY || window.innerHeight / 2;
+      createClickHeart(x, y);
+    }
+  });
+
+  document.addEventListener('touchend', function(e) {
+    if (!e.target.closest('.surprise-button') && 
+        !e.target.closest('.reason-card') && 
+        !e.target.closest('.close-reasons-btn')) {
+      var touch = e.changedTouches && e.changedTouches[0];
+      if (touch) {
+        createClickHeart(touch.clientX, touch.clientY);
+      }
+    }
+  });
+
+  // Scroll Effects
+  function initializeScrollEffects() {
+    var elements = document.querySelectorAll('.fade-in');
     
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-            }
-        });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+        }
+      });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     });
 
     elements.forEach(function(element) {
-        observer.observe(element);
+      observer.observe(element);
     });
-}
+  }
 
-// DOM Content Loaded
-document.addEventListener('DOMContentLoaded', function() {
+  // Initialization
+  document.addEventListener('DOMContentLoaded', function() {
     console.log('%c💖 Happy Valentine\'s Day! 💖', 
-        'font-size: 28px; color: #FF1654; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
+      'font-size: 28px; color: #FF1654; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);');
     console.log('%cMade with love for Stacey ❤️', 
-        'font-size: 14px; color: #FF1654; font-style: italic; margin-top: 10px;');
+      'font-size: 14px; color: #FF1654; font-style: italic; margin-top: 10px;');
 
     createFloatingParticles();
     createFloatingHearts();
     initializeButtonInteraction();
     initializeScrollEffects();
 
-    let ticking = false;
+    var ticking = false;
     window.addEventListener('scroll', function() {
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                const scrolled = window.pageYOffset;
-                const parallexElements = document.querySelectorAll('.hero-section');
-                parallexElements.forEach(function(el) {
-                    el.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
-                });
-                ticking = false;
-            });
-            ticking = true;
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          var scrolled = window.pageYOffset;
+          var parallexElements = document.querySelectorAll('.hero-section');
+          parallexElements.forEach(function(el) {
+            el.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     });
-});
+  });
 
-document.addEventListener('visibilitychange', function() {
+  // Page Visibility
+  document.addEventListener('visibilitychange', function() {
     if (!document.hidden) {
-        console.log('Welcome back! 💕');
+      console.log('Welcome back! 💕');
     }
-});
+  });
+
+})();
