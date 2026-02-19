@@ -1,193 +1,277 @@
+/* ==================== GLOBAL STYLES ==================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --primary-vibrant: #E91E63;
+    --primary-dark: #C2185B;
+    --accent-gold: #FFA726;
+    --accent-light: #F8BBD0;
+    --bg-light: #FFF8F9;
+    --text-dark: #1A1A2E;
+    --text-muted: #616161;
+    --card-bg: #FFFFFF;
+    --letter-bg: #FFF5F8;
+    --letter-accent: #F3E5F5;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-light);
+    color: var(--text-dark);
     overflow-x: hidden;
     min-height: 100vh;
     position: relative;
 }
 
-.background {
+/* ==================== BACKGROUND ANIMATIONS ==================== */
+.ambient-bg {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #FFE5EC 0%, #FFC2D1 25%, #FFB3C6 50%, #FF8FAB 75%, #FFB6C1 100%);
+    background: linear-gradient(135deg, #FCEEF8 0%, #F8EBF5 20%, #F3E8F0 40%, #EFE5EC 60%, #F5E8F0 80%, #FAE8EE 100%);
     background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-    z-index: 0;
-    will-change: background-position;
+    animation: ambientGradient 25s ease infinite;
+    z-index: -2;
 }
 
-@keyframes gradientShift {
+@keyframes ambientGradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-.hearts-container, .sparkles-container {
+.animated-background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: -1;
+}
+
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* ==================== PAGE WRAPPER ==================== */
+.page-wrapper {
+    position: relative;
     z-index: 1;
-}
-
-.floating-heart {
-    position: absolute;
-    font-size: 30px;
-    opacity: 0;
-    animation: floatHeart 8s ease-in-out infinite;
-}
-
-@keyframes floatHeart {
-    0% {
-        transform: translateY(100vh) rotate(0deg) scale(0);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-        transform: scale(1);
-    }
-    90% {
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg) scale(0);
-        opacity: 0;
-    }
-}
-
-.sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    animation: sparkleAnimation 2s ease-in-out infinite;
-    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
-}
-
-@keyframes sparkleAnimation {
-    0%, 100% {
-        opacity: 0;
-        transform: scale(0);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.main-container {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
-    position: relative;
-    z-index: 2;
+    justify-content: center;
+    padding: 25px;
 }
 
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 30px;
-    padding: 50px;
-    max-width: 800px;
+.card-container {
     width: 100%;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-    animation: cardEntrance 1s ease-out;
+    max-width: 920px;
+    background: var(--card-bg);
+    border-radius: 35px;
+    overflow: hidden;
+    box-shadow: 0 50px 120px rgba(233, 30, 99, 0.15),
+                0 20px 60px rgba(0, 0, 0, 0.06);
+    animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(10px);
 }
 
 @keyframes cardEntrance {
     from {
         opacity: 0;
-        transform: scale(0.8) translateY(50px);
+        transform: translateY(40px) scale(0.95);
     }
     to {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translateY(0) scale(1);
     }
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.12) 0%, rgba(255, 167, 38, 0.08) 100%);
+    mix-blend-mode: overlay;
+}
+
+/* ==================== CARD HEADER ==================== */
+.valentine-card {
+    padding: 70px 55px;
 }
 
 .card-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
 }
 
-.title {
-    font-size: 3em;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+.title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5em;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-vibrant) 0%, var(--primary-dark) 50%, #FF6B9D 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 20px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    animation: titlePulse 2s ease-in-out infinite;
+    letter-spacing: -1px;
+    line-height: 1.1;
 }
 
-@keyframes titlePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-.heart-icon {
-    font-size: 4em;
-    animation: heartBeat 1.5s ease-in-out infinite;
-}
-
-@keyframes heartBeat {
-    0%, 100% { transform: scale(1); }
-    10%, 30% { transform: scale(1.1); }
-    20%, 40% { transform: scale(1); }
-}
-
-.card-body {
-    color: #333;
-}
-
-.message {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    color: #666;
+.subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3em;
+    color: var(--text-muted);
     font-style: italic;
+    font-weight: 500;
+}
+
+.header-decoration {
+    margin-top: 10px;
+}
+
+.beating-heart {
+    font-size: 3.5em;
+    display: inline-block;
+    animation: modernHeartbeat 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes modernHeartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+    56% { transform: scale(1); }
+}
+
+/* ==================== LOVE MESSAGE SECTION ==================== */
+.love-message-section {
+    margin: 55px 0;
+}
+
+.greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9em;
+    color: var(--primary-vibrant);
+    font-weight: 600;
+    margin-bottom: 35px;
+    text-align: center;
+    letter-spacing: 0.5px;
 }
 
 .love-letter {
-    background: linear-gradient(135deg, rgba(255, 182, 193, 0.3) 0%, rgba(255, 228, 225, 0.3) 100%);
-    border-left: 5px solid #ff6b9d;
-    padding: 30px;
-    border-radius: 15px;
+    background: linear-gradient(135deg, var(--letter-bg) 0%, #FFEEF5 100%);
+    border-left: 5px solid var(--primary-vibrant);
+    padding: 32px 35px;
+    border-radius: 18px;
     margin: 30px 0;
+    line-height: 1.9;
+    font-size: 1.1em;
+    color: var(--text-dark);
+    letter-spacing: 0.4px;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.08);
 }
 
 .love-letter p {
-    font-size: 1.2em;
-    line-height: 1.8;
-    margin: 20px 0;
-    color: #555;
+    margin: 0;
 }
 
+.love-letter br {
+    content: "";
+    display: block;
+    margin: 8px 0;
+}
+
+.accent-letter {
+    border-left-color: var(--accent-gold);
+    background: linear-gradient(135deg, var(--letter-accent) 0%, #F9F0FF 100%);
+    box-shadow: 0 4px 15px rgba(255, 167, 38, 0.08);
+}
+
+.image-accent {
+    margin: 40px 0;
+    border-radius: 22px;
+    overflow: hidden;
+    height: 220px;
+    box-shadow: 0 25px 60px rgba(233, 30, 99, 0.18);
+}
+
+.accent-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.closing-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--primary-vibrant);
+    margin-top: 30px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* ==================== ANIMATIONS ==================== */
 .fade-in {
-    animation: fadeIn 1s ease-out forwards;
+    animation: modernFadeIn 0.8s ease-out forwards;
     opacity: 0;
 }
 
-.delay-1 { animation-delay: 0.5s; }
-.delay-2 { animation-delay: 1s; }
-.delay-3 { animation-delay: 1.5s; }
-.delay-4 { animation-delay: 2s; }
-.delay-5 { animation-delay: 2.5s; }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1s; }
+.delay-6 { animation-delay: 1.2s; }
 
-@keyframes fadeIn {
+@keyframes modernFadeIn {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -198,61 +282,75 @@ body {
     }
 }
 
-.interactive-section {
-    text-align: center;
-    margin: 40px 0;
+/* ==================== BUTTON SECTION ==================== */
+.button-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 55px 0;
 }
 
-.love-button {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+.surprise-button {
+    background: linear-gradient(135deg, var(--primary-vibrant) 0%, var(--primary-dark) 100%);
     border: none;
     color: white;
-    padding: 20px 40px;
-    font-size: 1.2em;
+    padding: 18px 50px;
+    font-size: 1.1em;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
-    transition: all 0.3s ease;
-    font-weight: bold;
-    /* Improve tap target for mobile */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 20px 50px rgba(233, 30, 99, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 60px;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     user-select: none;
-    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.love-button:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+.surprise-button:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 30px 70px rgba(233, 30, 99, 0.45);
 }
 
-.love-button:active {
-    transform: translateY(-2px) scale(1.02);
+.surprise-button:active {
+    transform: translateY(-4px) scale(1.02);
 }
 
-.button-text {
-    display: inline-block;
-    animation: buttonTextGlow 2s ease-in-out infinite;
+.button-label {
+    font-family: 'Poppins', sans-serif;
 }
 
-@keyframes buttonTextGlow {
-    0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-    50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+.button-icon {
+    font-size: 1.3em;
+    animation: iconBounce 2s ease-in-out infinite;
 }
 
-.reasons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.1); }
+}
+
+.button-hint {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+}
+
+/* ==================== REASONS SECTION ==================== */
+.reasons-container {
+    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     margin: 40px 0;
-    animation: slideDown 0.5s ease-out;
 }
 
-@keyframes slideDown {
+@keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(-30px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -261,36 +359,64 @@ body {
 }
 
 .reasons-title {
-    grid-column: 1 / -1;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
     text-align: center;
-    color: #f5576c;
-    font-size: 2em;
-    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary-vibrant) 0%, var(--primary-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
 .reason-card {
-    background: linear-gradient(135deg, rgba(255, 182, 193, 0.4) 0%, rgba(255, 228, 225, 0.4) 100%);
-    padding: 25px;
-    border-radius: 15px;
+    background: linear-gradient(135deg, var(--letter-bg) 0%, #FFF0F7 100%);
+    border: 2px solid rgba(233, 30, 99, 0.15);
+    padding: 32px;
+    border-radius: 20px;
     text-align: center;
-    transition: all 0.3s ease;
-    animation: reasonCardPop 0.5s ease-out backwards;
-    border: 2px solid rgba(255, 107, 157, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.reason-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .reason-card:nth-child(2) { animation-delay: 0.1s; }
-.reason-card:nth-child(3) { animation-delay: 0.2s; }
-.reason-card:nth-child(4) { animation-delay: 0.3s; }
-.reason-card:nth-child(5) { animation-delay: 0.4s; }
-.reason-card:nth-child(6) { animation-delay: 0.5s; }
-.reason-card:nth-child(7) { animation-delay: 0.6s; }
-.reason-card:nth-child(8) { animation-delay: 0.7s; }
-.reason-card:nth-child(9) { animation-delay: 0.8s; }
+.reason-card:nth-child(3) { animation-delay: 0.15s; }
+.reason-card:nth-child(4) { animation-delay: 0.2s; }
+.reason-card:nth-child(5) { animation-delay: 0.25s; }
+.reason-card:nth-child(6) { animation-delay: 0.3s; }
+.reason-card:nth-child(7) { animation-delay: 0.35s; }
+.reason-card:nth-child(8) { animation-delay: 0.4s; }
+.reason-card:nth-child(9) { animation-delay: 0.45s; }
 
-@keyframes reasonCardPop {
+@keyframes cardPop {
     from {
         opacity: 0;
-        transform: scale(0.5) rotate(-5deg);
+        transform: scale(0.8) rotate(-5deg);
     }
     to {
         opacity: 1;
@@ -299,82 +425,160 @@ body {
 }
 
 .reason-card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 15px 30px rgba(245, 87, 108, 0.3);
-    border-color: #ff6b9d;
+    transform: translateY(-15px) scale(1.08);
+    border-color: var(--primary-vibrant);
+    box-shadow: 0 28px 65px rgba(233, 30, 99, 0.28);
+    background: linear-gradient(135deg, #FFF0F7 0%, #FFE8F3 100%);
+}
+
+.reason-card:hover::before {
+    opacity: 1;
+    animation: shimmer 0.6s;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
 }
 
 .reason-emoji {
     font-size: 3em;
     margin-bottom: 15px;
+    display: inline-block;
     animation: emojiFloat 3s ease-in-out infinite;
 }
 
 @keyframes emojiFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+.reason-card:hover .reason-emoji {
+    animation: emojiSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes emojiSpin {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(15deg); }
+    100% { transform: scale(1) rotate(360deg); }
 }
 
 .reason-card p {
-    font-size: 1.1em;
-    color: #555;
-    line-height: 1.5;
+    font-size: 0.95em;
+    color: var(--text-dark);
+    line-height: 1.6;
+    font-weight: 500;
 }
 
-.footer-message {
+.close-reasons-btn {
+    display: block;
+    margin: 30px auto 0;
+    background: transparent;
+    border: 2px solid var(--primary-vibrant);
+    color: var(--primary-vibrant);
+    padding: 12px 30px;
+    font-size: 0.95em;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.close-reasons-btn:hover {
+    background: var(--primary-vibrant);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ==================== FOOTER ==================== */
+.card-footer {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 55px;
+    padding-top: 45px;
+    border-top: 2px solid rgba(233, 30, 99, 0.12);
 }
 
-.signature {
+.signature-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.forever-text {
+    font-family: 'Playfair Display', serif;
     font-size: 1.5em;
-    font-style: italic;
-    color: #666;
-    line-height: 1.8;
+    color: var(--primary-vibrant);
+    font-weight: 600;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .card {
-        padding: 30px 20px;
-    }
+.signature-name {
+    font-size: 1.2em;
+    color: var(--text-dark);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
 
-    .title {
-        font-size: 2em;
-    }
+/* ==================== FLOATING ELEMENTS ==================== */
+.floating-particle {
+    position: absolute;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 167, 38, 0.8), rgba(255, 167, 38, 0));
+    border-radius: 50%;
+    animation: particleFloat 6s ease-in-out infinite;
+}
 
-    .heart-icon {
-        font-size: 3em;
+@keyframes particleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
     }
-
-    .message {
-        font-size: 1.2em;
+    10% {
+        opacity: 0.8;
     }
-
-    .love-letter p {
-        font-size: 1em;
+    90% {
+        opacity: 0.8;
     }
-
-    .love-button {
-        padding: 15px 30px;
-        font-size: 1em;
-    }
-
-    .reasons-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .reasons-title {
-        font-size: 1.5em;
+    100% {
+        transform: translateY(-80vh) translateX(100px) scale(0);
+        opacity: 0;
     }
 }
 
-/* Click effect */
+.floating-heart {
+    position: absolute;
+    font-size: 28px;
+    pointer-events: none;
+    animation: heartFloat 8s ease-in-out forwards;
+}
+
+@keyframes heartFloat {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(150px) rotate(360deg) scale(0);
+        opacity: 0;
+    }
+}
+
 .click-heart {
     position: fixed;
-    pointer-events: none;
     font-size: 2em;
-    animation: clickHeartFloat 1s ease-out forwards;
+    pointer-events: none;
+    animation: clickHeartFloat 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     z-index: 9999;
 }
 
@@ -385,6 +589,149 @@ body {
     }
     100% {
         opacity: 0;
-        transform: translateY(-100px) scale(0);
+        transform: translateY(-120px) scale(0.5);
+    }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .page-wrapper {
+        padding: 15px;
+    }
+
+    .card-container {
+        border-radius: 30px;
+    }
+
+    .hero-section {
+        height: 220px;
+    }
+
+    .valentine-card {
+        padding: 40px 25px;
+    }
+
+    .card-header {
+        margin-bottom: 35px;
+        gap: 15px;
+    }
+
+    .main-title {
+        font-size: 2.2em;
+    }
+
+    .subtitle {
+        font-size: 1.1em;
+    }
+
+    .beating-heart {
+        font-size: 2.5em;
+    }
+
+    .greeting {
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+
+    .love-letter {
+        padding: 20px;
+        font-size: 1em;
+        line-height: 1.6;
+    }
+
+    .image-accent {
+        height: 150px;
+    }
+
+    .closing-message {
+        font-size: 1em;
+        margin-top: 20px;
+    }
+
+    .surprise-button {
+        padding: 15px 35px;
+        font-size: 1em;
+        min-height: 50px;
+    }
+
+    .button-hint {
+        font-size: 0.8em;
+    }
+
+    .reasons-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .reason-card {
+        padding: 25px;
+    }
+
+    .reason-emoji {
+        font-size: 2.5em;
+    }
+
+    .reason-card p {
+        font-size: 0.9em;
+    }
+
+    .reasons-title {
+        font-size: 1.6em;
+        margin-bottom: 25px;
+    }
+
+    .card-footer {
+        margin-top: 35px;
+        padding-top: 30px;
+    }
+
+    .forever-text {
+        font-size: 1.2em;
+    }
+
+    .signature-name {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        border-radius: 25px;
+        box-shadow: 0 20px 60px rgba(233, 30, 99, 0.15);
+    }
+
+    .valentine-card {
+        padding: 30px 20px;
+    }
+
+    .main-title {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 0.95em;
+    }
+
+    .love-message-section {
+        margin: 30px 0;
+    }
+
+    .love-letter {
+        padding: 18px;
+        font-size: 0.95em;
+        margin: 20px 0;
+    }
+
+    .reasons-grid {
+        gap: 12px;
+    }
+
+    .reason-card {
+        padding: 20px;
+    }
+
+    .reason-emoji {
+        font-size: 2.2em;
+        margin-bottom: 10px;
     }
 }

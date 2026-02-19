@@ -3,89 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 For my love - Happy Valentine's Day 💕</title>
+    <title>For Stacey - Happy Valentine's Day</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background">
-        <div class="hearts-container" id="heartsContainer"></div>
-        <div class="sparkles-container" id="sparklesContainer"></div>
+    <div class="ambient-bg"></div>
+    <div class="animated-background">
+        <div class="floating-particles" id="floatingParticles"></div>
+        <div class="floating-hearts" id="floatingHearts"></div>
     </div>
 
-    <div class="main-container">
-        <div class="card" id="mainCard">
-            <div class="card-header">
-                <h1 class="title">Happy Valentine's Day</h1>
-                <div class="heart-icon">💖</div>
-            </div>
-            
-            <div class="card-body">
-                <p class="message fade-in">To my love,</p>
-                
-                <div class="love-letter">
-                    <p class="fade-in delay-1">
-                        Every moment with you is a treasure,<br>
-                        Every day with you is a gift beyond measure.
-                    </p>
-                    <p class="fade-in delay-2">
-                        Your smile lights up my world,<br>
-                        Your love makes my heart swirl.
-                    </p>
-                    <p class="fade-in delay-3">
-                        Stacey, you are my sunshine, my moon, and my stars,<br>
-                        My yesterday, today, and all my tomorrows are ours.
-                    </p>
-                </div>
+    <main class="page-wrapper">
+        <div class="card-container">
+            <section class="hero-section">
+                <img src="heart-bokeh.jpg" alt="Heart bokeh lights" class="hero-image">
+                <div class="hero-overlay"></div>
+            </section>
 
-                <div class="interactive-section fade-in delay-4">
-                    <button class="love-button" id="loveButton">
-                        <span class="button-text">Click for a special surprise! 💕</span>
+            <article class="valentine-card">
+                <header class="card-header">
+                    <div class="title-wrapper">
+                        <h1 class="main-title">Happy Valentine's Day</h1>
+                        <p class="subtitle">To the love of my life</p>
+                    </div>
+                    <div class="header-decoration">
+                        <span class="beating-heart">💖</span>
+                    </div>
+                </header>
+
+                <section class="love-message-section">
+                    <p class="greeting fade-in">Dear Stacey,</p>
+                    
+                    <div class="love-letter fade-in delay-1">
+                        <p>Every moment with you is a treasure,<br>Every day with you is a gift beyond measure.</p>
+                    </div>
+
+                    <div class="image-accent">
+                        <img src="gold-particles.jpg" alt="Gold luxury particles" class="accent-image">
+                    </div>
+
+                    <div class="love-letter fade-in delay-2">
+                        <p>Your smile lights up my world,<br>Your love makes my heart swirl.</p>
+                    </div>
+
+                    <div class="love-letter accent-letter fade-in delay-3">
+                        <p>Stacey, you are my sunshine, my moon, and my stars,<br>My yesterday, today, and all my tomorrows are ours.</p>
+                    </div>
+
+                    <p class="closing-message fade-in delay-4">This is just the beginning of forever with you.</p>
+                </section>
+
+                <section class="button-section fade-in delay-5">
+                    <button class="surprise-button" id="loveButton">
+                        <span class="button-label">Discover Why I Love You</span>
+                        <span class="button-icon">💝</span>
                     </button>
-                </div>
+                    <p class="button-hint">Click to reveal</p>
+                </section>
 
-                <div class="reasons-grid" id="reasonsGrid" style="display: none;">
-                    <h2 class="reasons-title">Reasons Why I Love You</h2>
-                    <div class="reason-card">
-                        <div class="reason-emoji">😊</div>
-                        <p>Your beautiful smile that brightens my day</p>
+                <section class="reasons-container" id="reasonsContainer" style="display: none;">
+                    <h2 class="reasons-title">50 Reasons Why I Love You</h2>
+                    <div class="reasons-grid" id="reasonsGrid">
+                        <div class="reason-card">
+                            <div class="reason-emoji">😊</div>
+                            <p>Your beautiful smile that brightens my day</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">❤️</div>
+                            <p>Your kind and caring heart</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">🌟</div>
+                            <p>The way you make everything special</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">💫</div>
+                            <p>Your incredible personality</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">🌸</div>
+                            <p>Your beauty inside and out</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">🎵</div>
+                            <p>Your sweet voice and laughter</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">🌈</div>
+                            <p>The joy you bring into my life</p>
+                        </div>
+                        <div class="reason-card">
+                            <div class="reason-emoji">💝</div>
+                            <p>Simply being you</p>
+                        </div>
                     </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">❤️</div>
-                        <p>Your kind and caring heart</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">🌟</div>
-                        <p>The way you make everything special</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">💫</div>
-                        <p>Your incredible personality</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">🌸</div>
-                        <p>Your beauty inside and out</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">🎵</div>
-                        <p>Your sweet voice and laughter</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">🌈</div>
-                        <p>The joy you bring into my life</p>
-                    </div>
-                    <div class="reason-card">
-                        <div class="reason-emoji">💝</div>
-                        <p>Simply being you!</p>
-                    </div>
-                </div>
+                    <button class="close-reasons-btn" id="closeReasonsBtn">Back to Card</button>
+                </section>
 
-                <div class="footer-message fade-in delay-5">
-                    <p class="signature">Forever yours,<br>With all my love 💕</p>
-                </div>
-            </div>
+                <footer class="card-footer fade-in delay-6">
+                    <div class="signature-block">
+                        <p class="forever-text">Forever yours,</p>
+                        <p class="signature-name">With all my love 💕</p>
+                    </div>
+                </footer>
+            </article>
         </div>
-    </div>
+    </main>
 
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
